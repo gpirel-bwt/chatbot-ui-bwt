@@ -25,6 +25,7 @@ import {
 } from "@/types"
 import { AssistantImage } from "@/types/images/assistant-image"
 import { VALID_ENV_KEYS } from "@/types/valid-keys"
+import { log } from "console"
 import { useRouter } from "next/navigation"
 import { FC, useEffect, useState } from "react"
 
@@ -36,7 +37,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const router = useRouter()
 
   // PROFILE STORE
-  const [profile, setProfile] = useState<Tables<"profiles"> | null>(null)
+  // const [profile, setProfile] = useState<Tables<"profiles"> | null>(null)
+  const [profile, setProfile] = useState<null>(null)
 
   // ITEMS STORE
   const [assistants, setAssistants] = useState<Tables<"assistants">[]>([])
@@ -48,7 +50,52 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [presets, setPresets] = useState<Tables<"presets">[]>([])
   const [prompts, setPrompts] = useState<Tables<"prompts">[]>([])
   const [tools, setTools] = useState<Tables<"tools">[]>([])
-  const [workspaces, setWorkspaces] = useState<Tables<"workspaces">[]>([])
+  //const [workspaces, setWorkspaces] = useState<Tables<"workspaces">[]>([])*/
+
+  //const [assistants, setAssistants] = useState<null>(null)
+  //const [collections, setCollections] = useState<null>(null)
+  //const [chats, setChats] = useState<null>(null)
+  //const [files, setFiles] = useState<null>(null)
+  //const [folders, setFolders] = useState<null>(null)
+  //const [models, setModels] = useState<null>(null)
+  //const [presets, setPresets] = useState<null>(null)
+  //const [prompts, setPrompts] = useState<null>(null)
+  //const [tools, setTools] = useState<null>(null)
+  const [workspaces, setWorkspaces] = useState<{
+    id: "f6a7efa0-7d52-455a-84fc-22a2962e2578"
+    user_id: "58b0ff00-28f8-4256-a129-059a13949747"
+    created_at: "2024-10-03T00:37:41.013178+00:00"
+    updated_at: null
+    sharing: "private"
+    default_context_length: 4096
+    default_model: "gpt-4-turbo-preview"
+    default_prompt: "You are a friendly, helpful AI assistant."
+    default_temperature: 0.5
+    description: "My home workspace."
+    embeddings_provider: "openai"
+    include_profile_context: true
+    include_workspace_instructions: true
+    instructions: ""
+    is_home: true
+    name: "Home"
+    image_path: ""
+  }>([])
+
+  console.log("folders")
+  Object.entries(folders).forEach(([key, value]) => {
+    console.log(value)
+  })
+
+  /*   console.log('Profile' + profile)
+  console.log('Assitants' + assistants)
+  console.log('Collections' + collections)
+  console.log('Chats' +chats)
+  console.log('Files' + files)
+  console.log('Folders' + folders)
+  console.log('Models' + models)
+  console.log('Presets' + presets)
+  console.log('tools' + tools)
+  console.log('workspaces' + workspaces) */
 
   // MODELS STORE
   const [envKeyMap, setEnvKeyMap] = useState<Record<string, VALID_ENV_KEYS>>({})

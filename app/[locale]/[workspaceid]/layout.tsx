@@ -2,7 +2,7 @@
 
 import { Dashboard } from "@/components/ui/dashboard"
 import { ChatbotUIContext } from "@/context/context"
-import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
+/*import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
 import { getChatsByWorkspaceId } from "@/db/chats"
 import { getCollectionWorkspacesByWorkspaceId } from "@/db/collections"
 import { getFileWorkspacesByWorkspaceId } from "@/db/files"
@@ -12,9 +12,9 @@ import { getPresetWorkspacesByWorkspaceId } from "@/db/presets"
 import { getPromptWorkspacesByWorkspaceId } from "@/db/prompts"
 import { getAssistantImageFromStorage } from "@/db/storage/assistant-images"
 import { getToolWorkspacesByWorkspaceId } from "@/db/tools"
-import { getWorkspaceById } from "@/db/workspaces"
+import { getWorkspaceById } from "@/db/workspaces"*/
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
-import { supabase } from "@/lib/supabase/browser-client"
+//import { supabase } from "@/lib/supabase/browser-client"
 import { LLMID } from "@/types"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
@@ -61,7 +61,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
   useEffect(() => {
     ;(async () => {
-      const session = (await supabase.auth.getSession()).data.session
+      //const session = (await supabase.auth.getSession()).data.session
+      const session = true // This forces the page to beleive there is an actual session **
 
       if (!session) {
         return router.push("/login")
@@ -91,10 +92,30 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const fetchWorkspaceData = async (workspaceId: string) => {
     setLoading(true)
 
-    const workspace = await getWorkspaceById(workspaceId)
+    //const workspace = await getWorkspaceById(workspaceId)
+    const workspace = {
+      id: "f6a7efa0-7d52-455a-84fc-22a2962e2578",
+      user_id: "58b0ff00-28f8-4256-a129-059a13949748",
+      created_at: "2024-10-03 00:37:41.013178+00",
+      updated_at: null,
+      sharing: "private",
+      default_context_length: 4096,
+      default_model: "gpt-4-turbo-preview",
+      default_prompt: "You are a friendly, helpful AI assistant.",
+      default_temperature: 0.5,
+      description: "My home workspace.",
+      embeddings_provider: "openai",
+      include_profile_context: true,
+      include_workspace_instructions: true,
+      instructions: "",
+      is_home: true,
+      name: "Home",
+      image_path: ""
+    } // new code
+
     setSelectedWorkspace(workspace)
 
-    const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
+    /*const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
     setAssistants(assistantData.assistants)
 
     for (const assistant of assistantData.assistants) {
@@ -154,7 +175,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setTools(toolData.tools)
 
     const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
-    setModels(modelData.models)
+    setModels(modelData.models)*/
 
     setChatSettings({
       model: (searchParams.get("model") ||
